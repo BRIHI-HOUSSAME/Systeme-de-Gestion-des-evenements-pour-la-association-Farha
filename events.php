@@ -16,7 +16,7 @@
                 <li><a href="">Accueil</a></li>
                 <li><a href="#Événements-disponibles">Événements disponibles</a></li>
                 <li><a href="#FOOTER">Contact</a></li>
-                <li><a href="#">Se connecter</a></li>
+                <li><a href="" data-bs-target="#exampleModalToggle" data-bs-toggle="modal" >Se connecter</a></li>
             </ul>
             <div class="search">
                 <span class="icon">
@@ -30,6 +30,55 @@
             <input type="text"  name="" placeholder="Recherche...">
         </div>
     </header>
+
+
+    <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+    <div class="modal-header">
+        <h1  class="cnx-titre" id="exampleModalToggleLabel">Connexion</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- <form > -->
+        <input type="text" placeholder="Votre adresse e-mail"  class="input-cnx">
+        <input type="text" placeholder="Votre Mot de passe" class="input-cnx" >
+        <input type="submit" name="CNX-DONE" class="CNX-BTN" value="Connexion">
+        <!-- </form> -->
+      </div>
+      <div class="modal-footer">
+       <p>vous n'avez pas un compte ?</p><span class="INS-target" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">inscrivez-vous</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+    <div class="modal-header">
+        <h1 class="cnx-titre" id="exampleModalToggleLabel">Nouveau compte</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body  ">
+        <!-- <form > -->
+        <div class="input-ins-div">
+        <input type="text" placeholder="Votre Nom"  class="input-ins">
+        <input type="text" placeholder="Votre Prenom " class="input-ins" >
+        </div>
+        <div class="input-ins-div">
+        <input type="text" placeholder="Votre adresse e-mail"  class="input-ins">
+        <input type="password" placeholder="Votre Mot de passe" class="input-ins" >
+        </div>
+
+
+        <input type="submit" name="INS-DONE" class="CNX-BTN" value="Inscription">
+        <!-- </form> -->  
+        </div>
+    </div>
+  </div>
+</div>
+
 <script>
     let searchBtn = document.querySelector('.searchBtn');
     let closeBtn = document.querySelector('.closeBtn');
@@ -191,6 +240,7 @@ while ($row = $Statement->fetch(PDO::FETCH_ASSOC)) {
 }
 echo "</section>";
 ?>
+
 <section class="features">
     <div class="feature">
     <i class="fa-solid fa-ticket"></i>
