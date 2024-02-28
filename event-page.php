@@ -17,7 +17,7 @@
                 <li><a href="events.php">Accueil</a></li>
                 <li><a href="#Événements-disponibles">Événements disponibles</a></li>
                 <li><a href="#FOOTER">Contact</a></li>
-                <li><a href="#">Se connecter</a></li>
+                <li><a href="" data-bs-target="#exampleModalToggle" data-bs-toggle="modal" >Se connecter</a></li>
             </ul>
             <div class="search">
                 <span class="icon">
@@ -78,7 +78,7 @@ if (isset($_GET['ID'])) {
     $Statement = $DB->prepare($sql);
     $Statement->execute();
     $path = "imgs";
-    $Action = "Acheter maintenant";
+    $Action2 = "Acheter maintenant";
     $row = $Statement->fetch(PDO::FETCH_ASSOC);
 
 
@@ -137,9 +137,9 @@ if (isset($_GET['ID'])) {
       </div>';
       echo "</div>";
 
-      echo '<button type="submit" name="' . $Action . '" class="action-BTN">' . $Action . '</button>';
+      echo '<button type="submit" name="' . $Action2 . '" class="action-BTN">' . $Action2 . '</button>';
+      echo "<p class='cntc-msg'>* Vous devez vous connecter pour pouvoir acheter les billets *</p>";
 
-      echo '</div>';
       echo '</section>';
       echo '<section class="DESCRIPTION">';
       echo "   <h1 class='description'>Description :</h1>";
@@ -159,7 +159,7 @@ WHERE evenement.categorie = '{$row['categorie']}'";
 $Statement = $DB->prepare($sql2);
 $Statement->execute();
 while ($row2 = $Statement->fetch(PDO::FETCH_ASSOC)) {
-   $Action2 = "J'achète";
+   $Action = "J'achète";
 
     echo '<div class="cards">';
     echo "<img class='card-image' src='{$path}/{$row2['image']}'>";
@@ -179,12 +179,68 @@ while ($row2 = $Statement->fetch(PDO::FETCH_ASSOC)) {
     echo "<p class='card-price' > À partir de : {$row2['tarifReduit']} MAD</p>";
 
     echo '</div>';
-    echo '<a href="EVENT-PAGE.php?ID=' . $row2['idEvenement'] . '"><button class="card-button">' . $Action2 . '</button></a>';
+    echo '<a href="EVENT-PAGE.php"><button class="card-button">' . $Action . '</button></a>';
     echo '</div>';
 }
 echo "</section>";
 
 ?>
+
+<div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+    <div class="modal-header">
+        <h1  class="cnx-titre" id="exampleModalToggleLabel">Connexion</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- <form > -->
+        <input type="text" placeholder="Votre adresse e-mail"  class="input-cnx">
+        <input type="text" placeholder="Votre Mot de passe" class="input-cnx" >
+        <input type="submit" name="CNX-DONE" class="CNX-BTN" value="Connexion">
+        <!-- </form> -->
+      </div>
+      <div class="modal-footer">
+       <p>vous n'avez pas un compte ?</p><span class="INS-target" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">inscrivez-vous</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+    <div class="modal-header">
+        <h1 class="cnx-titre" id="exampleModalToggleLabel">Nouveau compte</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body  ">
+        <!-- <form > -->
+        <div class="input-ins-div">
+        <input type="text" placeholder="Votre Nom"  class="input-ins">
+        <input type="text" placeholder="Votre Prenom " class="input-ins" >
+        </div>
+        <div class="input-ins-div">
+        <input type="text" placeholder="Votre adresse e-mail"  class="input-ins">
+        <input type="password" placeholder="Votre Mot de passe" class="input-ins" >
+        </div>
+
+
+        <input type="submit" name="INS-DONE" class="CNX-BTN" value="Inscription">
+        <!-- </form> -->  
+        </div>
+    </div>
+  </div>
+</div>
+
+
+
+    
+        
+    
+
+
+
 
 <script>
         // Set the initial countdown values from PHP
@@ -282,5 +338,9 @@ echo "</section>";
 </div>
 
 </footer>
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
 </body>
 </html>
