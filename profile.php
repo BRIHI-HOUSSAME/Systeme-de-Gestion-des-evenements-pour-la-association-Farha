@@ -15,7 +15,7 @@
         <a href="events.php" class="LOGO">FARHA EVENTS</a>
         <div class="group">
             <ul class="navigation">
-                <li><a href="">Accueil</a></li>
+                <li><a href="events.php">Accueil</a></li>
                 <li><a href="#Événements-disponibles">Événements disponibles</a></li>
                 <li><a href="#FOOTER">Contact</a></li>
             </ul>
@@ -31,23 +31,66 @@
             <input type="text" name="" placeholder="Recherche...">
         </div>
     </header>
-    <section>
-        <h3>Mes informations</h3>
-        <p>Nom:BRIHI </p>
+
+    <div style="display: flex; justify-content: center; ">
+<img src="imgs/ACCOUNT-ICON.png" alt="" class="ICON">
+    </div>
+    <section >
+    <h3>Mes informations</h3>
+        <div>
+        <p>Nom: BRIHI</p>
         <p>Prénom: HOUSSAME</p>
         <p>Email: brihihossam@gmail.com</p>
-
+        </div>
     </section>
+
     <section>
         <h3>Modifier mes informations </h3>
+        <form action="">
         <input type="text" placeholder="Prénom" value="HOUSSAME" class="fontsninja-family-55">
         <input type="text" placeholder="Nom" value="BRIHI" class="fontsninja-family-55">
-        <input type="email" placeholder="Email" value="brihihossam@gmail.com" class="fontsninja-family-55">
-        <button type="submit">Modifier</button>
+        <input type="email" placeholder="Email" value="brihihossam@gmail.com">
+        <input type="submit"   class="UPDATE-INFO" value="Modifier" name="UPDATE" >
+        </form>
     </section>
+
     <section>
         <h3>Mes factures</h3>
-        
+        <table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Référence Facture</th>
+            <th>Nom de l'événement</th>
+            <th>Date de l'évènement</th>
+            <th>Total Payé</th>
+            <th>Voir les détails</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>12345</td>
+            <td>Événement 1</td>
+            <td>2024-02-15</td>
+            <td>250€</td>
+            <td>Voir</td>
+        </tr>
+        <tr>
+            <td>67890</td>
+            <td>Événement 2</td>
+            <td>2024-03-01</td>
+            <td>150€</td>
+            <td>Voir</td>
+        </tr>
+        <tr>
+            <td>54321</td>
+            <td>Événement 3</td>
+            <td>2024-03-10</td>
+            <td>180€</td>
+            <td>Voir</td>
+        </tr>
+    </tbody>
+</table>
+
     </section>
 
 

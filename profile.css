@@ -9,6 +9,10 @@ body {
     min-height: 100vh;
     overflow-x: hidden;
 }
+/* Custom CSS styles for the SVG */
+.svg-path {
+  fill: currentColor; /* Use the current color (set in parent div) */
+}
 
 header {
     /* position: absolute; */
@@ -194,8 +198,47 @@ header .search {
     }
 }
 
+section{
+    padding: 20px;
+    background-color: white;
+    border-radius: 3px;
+    box-shadow: 0 0 10px rgba(0,0,0,.06);
+    margin-bottom: 20px;    
+}
+section div {
+    margin-top: 20px;
+    margin-left: 40px;
+}
+h3{
+    margin-left: 10px;
+font-weight: 200;
+}
+section form {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+section input {
+    width: 20%;
+    text-indent: 5px;
+}
+.UPDATE-INFO{
+    padding: 5px;
+    background-color:rgb(10, 68, 95);
+    color: white;
+    text-align: center;
+    border: 0px;
+    border-radius: 5px;
+    font-size: medium;
+}
+.ICON{
+    margin-top: 10px;
+    margin-bottom: 10px;
+   width: 100px;
+   height: 100px;
 
-
+}
 
 
 
