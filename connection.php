@@ -12,7 +12,19 @@ try {
 } catch (PDOException $e) {
     echo 'failed ' . $e->getMessage();
 }
+function verify_user($email, $pdo)
+{
+    $stmCheckUser = $pdo->prepare("SELECT * FROM utilisateur WHERE email=:email");
+    $stmCheckUser->bindParam(':email',$email);
+    $stmCheckUser->execute();
+    $data = $stmCheckUser ->fetchAll(PDO::FETCH_ASSOC);
 
+    if(count($data)>0)
+        return true;
+    else 
+        return false;
+
+}
 
 
 
