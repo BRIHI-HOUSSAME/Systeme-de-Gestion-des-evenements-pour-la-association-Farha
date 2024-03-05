@@ -16,9 +16,9 @@
                 <li><a href="">Accueil</a></li>
                 <li><a href="#Événements-disponibles">Événements disponibles</a></li>
                 <li><a href="#FOOTER">Contact</a></li>
-                <li><a href="" data-bs-target="#exampleModalToggle" data-bs-toggle="modal" >Se connecter</a></li>
+                <li><a href="" data-bs-target="#exampleModalToggle" data-bs-toggle="modal" >Mon Compte</a></li>
             </ul>
-            <div class="search">
+            <div class="search">  
                 <span class="icon">
                     <ion-icon name="search-outline" class="searchBtn"></ion-icon>
                     <ion-icon name="close-outline" class="closeBtn"></ion-icon>
@@ -40,11 +40,11 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <!-- <form > -->
-        <input type="text" placeholder="Votre adresse e-mail"  class="input-cnx">
-        <input type="text" placeholder="Votre Mot de passe" class="input-cnx" >
-        <input type="submit" name="CNX-DONE" class="CNX-BTN" value="Connexion">
-        <!-- </form> -->
+<form action="" method="post">
+      <input type="text" placeholder="Votre adresse e-mail"  required  class="input-cnx">
+        <input type="text" placeholder="Votre Mot de passe" required  class="input-cnx" >
+        <input type="submit" name="CNX-DONE" class="CNX-BTN"  value="Connexion">
+        </form>
       </div>
       <div class="modal-footer">
        <p>vous n'avez pas un compte ?</p><span class="INS-target" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">inscrivez-vous</span>
@@ -61,7 +61,8 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body  ">
-        <!-- <form > -->
+
+      <form action="" method="post">
         <div class="input-ins-div">
         <input type="text" placeholder="Votre Nom"  class="input-ins">
         <input type="text" placeholder="Votre Prenom " class="input-ins" >
@@ -73,42 +74,13 @@
 
 
         <input type="submit" name="INS-DONE" class="CNX-BTN" value="Inscription">
-        <!-- </form> -->  
+        </form>  
         </div>
     </div>
   </div>
 </div>
 
-<script>
-    let searchBtn = document.querySelector('.searchBtn');
-    let closeBtn = document.querySelector('.closeBtn');
-    let searchBox = document.querySelector('.searchBox');
-    let navigation = document.querySelector('.navigation');
-    let toggleMenu = document.querySelector('.menuToggle');
-    let header = document.querySelector('header');
 
-    searchBtn.onclick = function () {
-        searchBox.classList.add('active');
-        closeBtn.classList.add('active');
-        searchBtn.classList.add('active');
-        toggleMenu.classList.add('hide');
-
-    }
-    closeBtn.onclick = function () {
-        searchBox.classList.remove('active');
-        closeBtn.classList.remove('active');
-        searchBtn.classList.remove('active');
-        toggleMenu.classList.remove('hide');
-
-    }
-
-    toggleMenu.onclick = function () {
-        header.classList.toggle('open');
-        closeBtn.classList.remove('active');
-        searchBtn.classList.remove('active');
-        toggleMenu.classList.remove('active');
-    }
-</script>
 
 <div id="carouselExampleIndicators" class="carousel slide">
   <div class="carousel-indicators">
@@ -290,6 +262,7 @@ echo "</section>";
         </div>
     
 </footer>
+<script src="header-script.js"></script>
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>

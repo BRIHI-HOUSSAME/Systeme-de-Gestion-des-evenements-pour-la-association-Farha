@@ -17,7 +17,7 @@
                 <li><a href="events.php">Accueil</a></li>
                 <li><a href="#Événements-disponibles">Événements disponibles</a></li>
                 <li><a href="#FOOTER">Contact</a></li>
-                <li><a href="" data-bs-target="#exampleModalToggle" data-bs-toggle="modal" >Se connecter</a></li>
+                <li><a href="" data-bs-target="#exampleModalToggle" data-bs-toggle="modal" >Mon Compte</a></li>
             </ul>
             <div class="search">
                 <span class="icon">
@@ -31,37 +31,7 @@
             <input type="text"  name="" placeholder="Recherche...">
         </div>
     </header>
-<script>
-    let searchBtn = document.querySelector('.searchBtn');
-    let closeBtn = document.querySelector('.closeBtn');
-    let searchBox = document.querySelector('.searchBox');
-    let navigation = document.querySelector('.navigation');
-    let toggleMenu = document.querySelector('.menuToggle');
-    let header = document.querySelector('header');
 
-    searchBtn.onclick = function () {
-        searchBox.classList.add('active');
-        closeBtn.classList.add('active');
-        searchBtn.classList.add('active');
-        toggleMenu.classList.add('hide');
-
-    }
-    closeBtn.onclick = function () {
-        searchBox.classList.remove('active');
-        closeBtn.classList.remove('active');
-        searchBtn.classList.remove('active');
-        toggleMenu.classList.remove('hide');
-
-    }
-
-    toggleMenu.onclick = function () {
-        header.classList.toggle('open');
-        closeBtn.classList.remove('active');
-        searchBtn.classList.remove('active');
-        toggleMenu.classList.remove('active');
-    }
-
-</script>
 <?php
 
 include 'connection.php';
@@ -195,8 +165,8 @@ echo "</section>";
       </div>
       <div class="modal-body">
         <!-- <form > -->
-        <input type="text" placeholder="Votre adresse e-mail"  class="input-cnx">
-        <input type="text" placeholder="Votre Mot de passe" class="input-cnx" >
+        <input type="text" placeholder="Votre adresse e-mail"  required class="input-cnx">
+        <input type="text" placeholder="Votre Mot de passe"  required class="input-cnx" >
         <input type="submit" name="CNX-DONE" class="CNX-BTN" value="Connexion">
         <!-- </form> -->
       </div>
@@ -217,12 +187,12 @@ echo "</section>";
       <div class="modal-body  ">
         <!-- <form > -->
         <div class="input-ins-div">
-        <input type="text" placeholder="Votre Nom"  class="input-ins">
-        <input type="text" placeholder="Votre Prenom " class="input-ins" >
+        <input type="text" placeholder="Votre Nom"   required class="input-ins">
+        <input type="text" placeholder="Votre Prenom "  required  class="input-ins" >
         </div>
         <div class="input-ins-div">
-        <input type="text" placeholder="Votre adresse e-mail"  class="input-ins">
-        <input type="password" placeholder="Votre Mot de passe" class="input-ins" >
+        <input type="text" placeholder="Votre adresse e-mail" required class="input-ins">
+        <input type="password" placeholder="Votre Mot de passe"   required   class="input-ins" >
         </div>
 
 
@@ -232,15 +202,6 @@ echo "</section>";
     </div>
   </div>
 </div>
-
-
-
-    
-        
-    
-
-
-
 
 <script>
         // Set the initial countdown values from PHP
@@ -338,6 +299,7 @@ echo "</section>";
 </div>
 
 </footer>
+<script src="header-script.js"></script>
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
