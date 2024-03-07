@@ -195,11 +195,11 @@ header .search {
 .EVENT-DETAILLE{
     display: flex;
     flex-wrap: wrap;
-    /* background-color: blueviolet; */
+    height: fit-content;
 }
 .EVENT-IMAGE-div{
     width: 60%;
-    height: 70vh;
+    height: 80vh;
 }
 .EVENT-IMAGE{
 width: 100%;
@@ -207,22 +207,21 @@ height: 100%;
 }
 .EVENT-INFORMATION{
 width: 40%;
+background-color:  rgb(10, 68, 95) ;
+color: white;
 }
 .EVENT-date{
 text-align: center;
 font-size: x-large;
 margin-bottom: 30px;
-/* background-color: red; */
 padding: 10px;
 }
 .EVENT-date i{
-    color: rgb(10, 68, 95);
+    color: rgb(255, 255, 255);
 }
 .PRICE-container{
-    /* background-color: aqua; */
     display: flex;
     justify-content: center;
-    /* background-color: red; */
     margin-bottom: 20px;
     margin-top: 20px;
 }
@@ -230,9 +229,10 @@ padding: 10px;
     text-indent: 5px;
     width: 100px;
     height: 30px;
-    border: 1px solid  rgb(10, 68, 95);
+    border: 2px solid  rgb(155, 155, 155);
     margin-left: 5px;
     margin-bottom: 10px;
+    border-radius: 5px;
 }
 .PRICE-container p{
     margin-top:  2px; 
@@ -260,7 +260,7 @@ margin-right: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 2px solid rgb(10, 68, 95) ;
+    border: 2px solid rgb(255, 255, 255) ;
     width: 50px;
     height: 50px;
     border-radius: 50%;
@@ -291,7 +291,7 @@ margin-right: 20px;
 }
 .description{
     font-weight: 200;
-    margin-top: 10px;
+    /* margin-top: 10px; */
     margin-left: 10px;
 }
 .description-CONTENT{

@@ -25,7 +25,27 @@ function verify_user($email, $pdo)
         return false;
 
 }
+function login_user($email, $pw, $pdo){
 
+    $stmLoginUser = $pdo->prepare("SELECT * FROM utilisateur WHERE email=:email and motPasse=:pw");
+    $stmLoginUser->bindParam(':email',$email);
+    $stmLoginUser->bindParam(':pw',$pw);
+    $stmLoginUser->execute();
+        $data = $stmLoginUser ->fetchAll(PDO::FETCH_ASSOC);
+    
+        if(count($data)>0)
+            return true;
+        else 
+            return false;
 
+    }
+function get_userd_ID($email, $pw, $pdo){
 
+    $stmLoginUser = $pdo->prepare("SELECT * FROM utilisateur WHERE email=:email and motPasse=:pw");
+    $stmLoginUser->bindParam(':email',$email);
+    $stmLoginUser->bindParam(':pw',$pw);
+    $stmLoginUser->execute();
+        $id_user = $stmLoginUser ->fetch(PDO::FETCH_ASSOC);
+return $id_user['idUtilisateur'];
+}
 ?>

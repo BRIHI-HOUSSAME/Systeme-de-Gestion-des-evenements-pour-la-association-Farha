@@ -42,11 +42,11 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <!-- <form > -->
+                <form action="" method="post">
                     <input type="text" placeholder="Votre adresse e-mail" required class="input-cnx">
                     <input type="text" placeholder="Votre Mot de passe" required class="input-cnx">
                     <input type="submit" name="CNX-DONE" class="CNX-BTN" value="Connexion">
-                    <!-- </form> -->
+                    </form>
                 </div>
                 <div class="modal-footer">
                     <p>vous n'avez pas un compte ?</p><span class="INS-target" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">inscrivez-vous</span>
@@ -84,6 +84,11 @@
     <?php
 
     include 'connection.php';
+
+
+
+    
+
 
     // Inscription form
     if (isset($_POST['INS-DONE'])) {

@@ -1,3 +1,47 @@
+<?php
+session_start();
+require_once 'connection.php';
+
+if (isset($_SESSION['ID'])) {
+    $userId = $_SESSION['ID'];
+
+    $user = $DB->prepare("SELECT * FROM utilisateur where idUtilisateur = :ID");
+    $user->bindParam(':ID', $userId);
+    $user->execute();
+    $users = $user->fetch(PDO::FETCH_ASSOC);
+
+
+    if (isset($_POST['UPDATE'])) {
+        $editedFname = $_POST['prenom'];
+        $editedLname = $_POST['nom'];
+        $editedEmail =  $_POST['email'];
+        $update = $DB->prepare("UPDATE utilisateur SET prenom = :new_prenom, nom = :new_nom, email = :editedEmail where idUtilisateur = :ID");
+        $update->bindParam(':new_prenom', $editedFname);
+        $update->bindParam(':new_nom', $editedLname);
+        $update->bindParam(':editedEmail',  $editedEmail);
+        $update->bindParam(':ID', $userId);
+        $update->execute();
+        header("location: profile.php");
+        echo '
+        <div class="fixed-top w-100 " style="margin-top: 100px;" >
+            <div class="alert alert-success d-flex align-items-center justify-content-between alert-dismissible fade show px-5" role="alert">
+                <div class="d-flex align-items-center justify-content-center gap-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi flex-shrink-0 me-2" role="img" aria-label="Success:" viewBox="0 0 16 16">
+                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                    </svg>
+                    Modifié avec succès
+                </div>
+                <div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+        ';
+        
+        exit();
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -38,18 +82,18 @@
     <section >
     <h3>Mes informations</h3>
         <div>
-        <p>Nom: BRIHI</p>
-        <p>Prénom: HOUSSAME</p>
-        <p>Email: brihihossam@gmail.com</p>
+        <p>Nom: <?php echo $users['nom'] ?></p>
+        <p>Prénom: <?php echo $users['prenom'] ?></p>
+        <p>Email: <?php echo $users['email'] ?></p>
         </div>
     </section>
 
     <section>
         <h3>Modifier mes informations </h3>
-        <form action="">
-        <input type="text" placeholder="Prénom" value="HOUSSAME" class="fontsninja-family-55">
-        <input type="text" placeholder="Nom" value="BRIHI" class="fontsninja-family-55">
-        <input type="email" placeholder="Email" value="brihihossam@gmail.com">
+        <form action="" method="post">
+        <input type="text" placeholder="Prénom" value=" <?php echo $users['prenom'] ?>"  name="prenom" >
+        <input type="text" placeholder="Nom" value=" <?php echo $users['nom'] ?>"  name="nom" >
+        <input type="email" placeholder="Email" name="email" value="<?php echo $users['email'] ?>" >
         <input type="submit"   class="UPDATE-INFO" value="Modifier" name="UPDATE" >
         </form>
     </section>
