@@ -112,25 +112,25 @@ if (isset($_SESSION['ID'])) {
     </thead>
     <tbody>
         <tr>
-            <td>12345</td>
-            <td>Événement 1</td>
-            <td>2024-02-15</td>
-            <td>250€</td>
-            <td>Voir</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
         </tr>
         <tr>
-            <td>67890</td>
-            <td>Événement 2</td>
-            <td>2024-03-01</td>
-            <td>150€</td>
-            <td>Voir</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
         </tr>
         <tr>
-            <td>54321</td>
-            <td>Événement 3</td>
-            <td>2024-03-10</td>
-            <td>180€</td>
-            <td>Voir</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
         </tr>
     </tbody>
 </table>

@@ -12,6 +12,7 @@ try {
 } catch (PDOException $e) {
     echo 'failed ' . $e->getMessage();
 }
+
 function verify_user($email, $pdo)
 {
     $stmCheckUser = $pdo->prepare("SELECT * FROM utilisateur WHERE email=:email");
@@ -45,7 +46,7 @@ function get_userd_ID($email, $pw, $pdo){
     $stmLoginUser->bindParam(':email',$email);
     $stmLoginUser->bindParam(':pw',$pw);
     $stmLoginUser->execute();
-        $id_user = $stmLoginUser ->fetch(PDO::FETCH_ASSOC);
-return $id_user['idUtilisateur'];
+    $id_user = $stmLoginUser ->fetch(PDO::FETCH_ASSOC);
+    return $id_user['idUtilisateur'];
 }
 ?>

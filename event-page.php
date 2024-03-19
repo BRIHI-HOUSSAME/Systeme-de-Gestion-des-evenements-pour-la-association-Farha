@@ -1,3 +1,93 @@
+<?php
+ session_start();
+
+include 'connection.php';
+  // Connexion form target
+  if (isset($_POST['CNX-DONE'])) {
+    if (login_user($_POST['email-cnx'], $_POST['password-cnx'], $DB)) {
+      echo '
+      <div class="fixed-top w-100 " style="margin-top: 100px;" >
+          <div class="alert alert-success d-flex align-items-center justify-content-between alert-dismissible fade show px-5" role="alert">
+              <div class="d-flex align-items-center justify-content-center gap-3">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi flex-shrink-0 me-2" role="img" aria-label="Success:" viewBox="0 0 16 16">
+                  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                  </svg>
+                  Connexion réussie
+              </div>
+              <div>
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+          </div>
+      </div>
+      ';
+      $idUser = get_userd_ID($_POST['email-cnx'], $_POST['password-cnx'], $DB);
+      $_SESSION['ID']=$idUser;
+    } else {
+      echo '
+          <div class="fixed-top w-100" style="margin-top: 100px;">
+              <div class="alert alert-danger d-flex align-items-center justify-content-between alert-dismissible fade show px-5" role="alert">
+                  <div class="d-flex align-items-center justify-content-center gap-3">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-triangle-fill" viewBox="0 0 16 16">
+                          <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5m.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
+                      </svg>
+                      Email ou mot de passe incorrect
+                  </div>
+                  <div>
+                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+              </div>
+          </div>';
+    }
+  }
+
+  // Inscription form taget
+  
+  if (isset($_POST['INS-DONE'])) {
+    if (!verify_user($_POST['email'], $DB)) {
+      $insertQuery = "INSERT INTO utilisateur (nom, prenom, email, motPasse) VALUES (:name, :lastName, :email, :password)";
+      $stmInsertUser = $DB->prepare($insertQuery);
+      $stmInsertUser->bindParam(':name', $_POST['nom']);
+      $stmInsertUser->bindParam(':lastName', $_POST['prenom']);
+      $stmInsertUser->bindParam(':email', $_POST['email']);
+      $stmInsertUser->bindParam(':password', $_POST['password']);
+      $stmInsertUser->execute();
+      echo '
+          <div class="fixed-top w-100 " style="margin-top: 100px;" >
+              <div class="alert alert-success d-flex align-items-center justify-content-between alert-dismissible fade show px-5" role="alert">
+                  <div class="d-flex align-items-center justify-content-center gap-3">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi flex-shrink-0 me-2" role="img" aria-label="Success:" viewBox="0 0 16 16">
+                      <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                      </svg>
+                      Inscription réussie
+                  </div>
+                  <div>
+                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+              </div>
+          </div>
+          ';
+      $idUser = get_userd_ID($_POST['email'], $_POST['password'], $DB);
+      $_SESSION['ID']=$idUser;
+    } else {
+      echo '
+          <div class="fixed-top w-100 " style="margin-top: 100px;">
+              <div class="alert alert-danger d-flex align-items-center justify-content-between alert-dismissible fade show px-5" role="alert">
+                  <div class="d-flex align-items-center justify-content-center gap-3">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-triangle-fill" viewBox="0 0 16 16">
+                          <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5m.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
+                      </svg>
+                      Email existant
+                  </div>
+                  <div>
+                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+              </div>
+          </div>
+          ';
+    }
+  }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,101 +102,96 @@
 </head>
 
 <body>
-    <header>
-        <a href="events.php" class="LOGO">FARHA EVENTS</a>
-        <div class="group">
-            <ul class="navigation">
-                <li><a href="events.php">Accueil</a></li>
-                <li><a href="events.php#Événements-disponibles">Événements disponibles</a></li>
-                <li><a href="#FOOTER">Contact</a></li>
-                <li><a href="" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Mon Compte</a></li>
-            </ul>
-            <div class="search">
-                <span class="icon">
-                    <ion-icon name="search-outline" class="searchBtn"></ion-icon>
-                    <ion-icon name="close-outline" class="closeBtn"></ion-icon>
-                </span>
-            </div>
-            <ion-icon name="menu-outline" class="menuToggle"></ion-icon>
-        </div>
-        <div class="searchBox">
-            <input type="text" name="" placeholder="Recherche...">
-        </div>
-    </header>
 
-    <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="cnx-titre" id="exampleModalToggleLabel">Connexion</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                <form action="" method="post">
-                    <input type="text" placeholder="Votre adresse e-mail" required class="input-cnx">
-                    <input type="text" placeholder="Votre Mot de passe" required class="input-cnx">
-                    <input type="submit" name="CNX-DONE" class="CNX-BTN" value="Connexion">
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <p>vous n'avez pas un compte ?</p><span class="INS-target" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">inscrivez-vous</span>
-                </div>
-            </div>
-        </div>
+<header>
+    <a href="events.php" class="LOGO">FARHA EVENTS</a>
+    <div class="group">
+      <ul class="navigation">
+        <li><a href="">Accueil</a></li>
+        <li><a href="#Événements-disponibles">Événements disponibles</a></li>
+        <li><a href="#FOOTER">Contact</a></li>
+        <li>
+        <?php 
+
+        if(isset($_SESSION['ID'])){
+          echo'<a href="profile.php" >Profile</a>';
+        }
+        else{
+          echo'<a href="" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Mon Compte</a>';
+        }
+        ?>
+        </li>
+      </ul>
+      <div class="search">
+        <span class="icon">
+          <ion-icon name="search-outline" class="searchBtn"></ion-icon>
+          <ion-icon name="close-outline" class="closeBtn"></ion-icon>
+        </span>
+      </div>
+      <ion-icon name="menu-outline" class="menuToggle"></ion-icon>
     </div>
-
-    <div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="cnx-titre" id="exampleModalToggleLabel">Nouveau compte</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body  ">
-
-                    <form action="" method="post">
-                        <div class="input-ins-div">
-                            <input type="text" placeholder="Votre Nom" name="nom" required class="input-ins">
-                            <input type="text" placeholder="Votre Prenom " name="prenom" required class="input-ins">
-                        </div>
-                        <div class="input-ins-div">
-                            <input type="email" placeholder="Votre adresse e-mail" name="email" required class="input-ins">
-                            <input type="password" placeholder="Votre Mot de passe" name="password" required class="input-ins">
-                        </div>
-                        <input type="submit" name="INS-DONE" class="CNX-BTN" value="Inscription">
-                    </form>
-                </div>
-            </div>
-        </div>
+    <div class="searchBox">
+      <input type="text" name="" placeholder="Recherche...">
     </div>
+  </header>
+
+  <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="cnx-titre" id="exampleModalToggleLabel">Connexion</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="" method="post">
+            <input type="text" placeholder="Votre adresse e-mail" required name="email-cnx" class="input-cnx">
+            <input type="text" placeholder="Votre Mot de passe" required name="password-cnx" class="input-cnx">
+            <input type="submit" name="CNX-DONE" class="CNX-BTN" value="Connexion">
+          </form>
+        </div>
+        <div class="modal-footer">
+          <p>vous n'avez pas un compte ?</p><span class="INS-target" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">inscrivez-vous</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="cnx-titre" id="exampleModalToggleLabel2">Nouveau compte</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="" method="post">
+          <div class="modal-body">
+            <div class="input-ins-div">
+              <input type="text" class="input-ins" placeholder="Votre Nom" name="nom" required>
+              <input type="text" class="input-ins" placeholder="Votre Prenom" name="prenom" required>
+            </div>
+            <div class="input-ins-div">
+              <input type="email" class="input-ins" placeholder="Votre adresse e-mail" name="email" required>
+              <input type="password" class="input-ins" placeholder="Votre Mot de passe" name="password" required>
+            </div>
+          </div>
+          <div>
+            <div style="display:flex; justify-content: space-between;">
+              <div> <input type="submit" name="INS-DONE" class="CNX-BTN" value="Inscription"></div>
+              <div style="display:flex;  margin-top:15px; margin-right:15px ">
+                <p>Vous avez déjà un compte?</p>
+                <span class="INS-target" data-bs-toggle="modal" data-bs-target="#exampleModalToggle"> Connexion</span>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 
 
     <?php
 
-    include 'connection.php';
 
-
-
-    
-
-
-    // Inscription form
-    if (isset($_POST['INS-DONE'])) {
-
-        if (!verify_user($_POST['email'], $DB)) {
-
-
-            $insertQuery = "INSERT INTO utilisateur (nom,prenom,email,motPasse) VALUES (:name,:lastName,:email,:password)";
-            $stmInsertUser = $DB->prepare($insertQuery);
-            $stmInsertUser->bindParam(':name', $_POST['nom']);
-            $stmInsertUser->bindParam(':lastName', $_POST['prenom']);
-            $stmInsertUser->bindParam(':email', $_POST['email']);
-            $stmInsertUser->bindParam(':password', $_POST['password']);
-            $stmInsertUser->execute();
-            echo "inscription reussi";
-        } else
-            echo "<span class='error'>Email existent </span> <br>";
-    }
 
     if (isset($_GET['ID'])) {
         $ID = $_GET['ID'];
