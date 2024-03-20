@@ -1,7 +1,36 @@
 <?php
  session_start();
-
 include 'connection.php';
+
+if(isset($_POST['Acheter-Maintenant'])) {
+
+  if(isset($_SESSION['ID'])) {
+
+
+
+    
+  } 
+  else {
+    echo '
+    <div class="fixed-top w-100 " style="margin-top: 100px;">
+        <div class="alert alert-danger d-flex align-items-center justify-content-between alert-dismissible fade show px-5" role="alert">
+            <div class="d-flex align-items-center justify-content-center gap-3">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-triangle-fill" viewBox="0 0 16 16">
+                    <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5m.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
+                </svg>
+ Vous devez vous connecter pour pouvoir acheter les billets,<span data-bs-target="#exampleModalToggle" data-bs-toggle="modal" class="acht-msg">Connécter vous</span>
+                </div>
+            <div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+    ';
+  }
+}
+
+
+
   // Connexion form target
   if (isset($_POST['CNX-DONE'])) {
     if (login_user($_POST['email-cnx'], $_POST['password-cnx'], $DB)) {
@@ -107,8 +136,8 @@ include 'connection.php';
     <a href="events.php" class="LOGO">FARHA EVENTS</a>
     <div class="group">
       <ul class="navigation">
-        <li><a href="">Accueil</a></li>
-        <li><a href="#Événements-disponibles">Événements disponibles</a></li>
+        <li><a href="events.php">Accueil</a></li>
+        <li><a href="events.php#Événements-disponibles">Événements disponibles</a></li>
         <li><a href="#FOOTER">Contact</a></li>
         <li>
         <?php 
@@ -117,21 +146,11 @@ include 'connection.php';
           echo'<a href="profile.php" >Profile</a>';
         }
         else{
-          echo'<a href="" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Mon Compte</a>';
+          echo'<a  data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Mon Compte</a>';
         }
         ?>
         </li>
       </ul>
-      <div class="search">
-        <span class="icon">
-          <ion-icon name="search-outline" class="searchBtn"></ion-icon>
-          <ion-icon name="close-outline" class="closeBtn"></ion-icon>
-        </span>
-      </div>
-      <ion-icon name="menu-outline" class="menuToggle"></ion-icon>
-    </div>
-    <div class="searchBox">
-      <input type="text" name="" placeholder="Recherche...">
     </div>
   </header>
 
@@ -209,7 +228,6 @@ include 'connection.php';
 
 
         echo "   <h1 class='titre'>{$row['titre']}</h1>";
-
         echo '<section class="EVENT-DETAILLE" >';
         echo '<div class="EVENT-IMAGE-div">';
         echo '<img src="' . $path . '/' . $row['image'] . '" alt="" class="EVENT-IMAGE">';
@@ -221,13 +239,15 @@ include 'connection.php';
         $calendar_icon = '<i class="fa-regular fa-calendar-days"></i>';
         $clock_icon = '<i class="fa-regular fa-clock"></i>';
         echo '<p class="EVENT-date">' . $calendar_icon . ' ' . $formatted_date . ' ' . $clock_icon . ' ' . $formatted_time . '</p>';
+
+        echo '<form action="" method="POST">';
         echo '<div class="PRICE-container">';
         echo "   <h1 class='Price'>Tarif Normal :{$row['tarifnormal']} MAD</h1>";
-        echo ' <p>Nombre de Tickets:</p> <input type="number" name="quantity" min="1" max="100">';
+        echo ' <p>Nombre de Tickets:</p><input type="number" name="quantity-normal" min="1" max="100">';
         echo '</div>';
         echo '<div class="PRICE-container">';
         echo "   <h1 class='Price'> Tarif Reduit: {$row['tarifReduit']} MAD</h1>";
-        echo '<p>Nombre de Tickets:</p><input type="number" name="quantity" min="1" max="100">';
+        echo '<p>Nombre de Tickets:</p><input type="number" name="quantity-reduit" min="1" max="100">';
         echo '</div>';
         echo "<p class='ACTION-TEXT'> Vite !! Achetez rapidement vos tickets </p>";
 
@@ -263,8 +283,9 @@ include 'connection.php';
       </div>';
         echo "</div>";
 
-        echo '<button type="submit" name="' . $Action2 . '" class="action-BTN">' . $Action2 . '</button>';
+        echo'        <input type="submit" value="' . $Action2 . '" name="Acheter-Maintenant"  class="action-BTN" >';
         echo "<p class='cntc-msg'>* Vous devez vous connecter pour pouvoir acheter les billets *</p>";
+        echo"</form>";
 
         echo '</section>';
         echo '<section class="DESCRIPTION">';
@@ -276,6 +297,7 @@ include 'connection.php';
       <p class='RELATED-EVENTS-PRG'>A meme category</p>
       </section>";
     }
+
     // Display the category events
     echo "<section class='containeer'>";
     $sql2 = "SELECT * FROM evenement 
@@ -355,7 +377,7 @@ WHERE evenement.categorie = '{$row['categorie']}'";
 
         // Start the countdown when the page loads
         window.onload = function() {
-            updateCountdown();
+         updateCountdown();
         };
     </script>
 
@@ -409,7 +431,6 @@ WHERE evenement.categorie = '{$row['categorie']}'";
         </div>
 
     </footer>
-    <script src="header-script.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>

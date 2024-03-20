@@ -189,7 +189,6 @@ header .search {
     font-weight: 600;
     font-size: xx-large;
     text-align: center;
-    text-decoration: underline;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 .EVENT-DETAILLE{
@@ -523,4 +522,10 @@ font-weight: 600;
     display: flex;
     justify-content: space-evenly;
     margin-bottom: 20px;
+}
+.acht-msg{
+    font-weight: bold;
+    /* margin-left: 0px; */
+    color: rgb(117, 24, 24);
+    cursor: pointer;
 }

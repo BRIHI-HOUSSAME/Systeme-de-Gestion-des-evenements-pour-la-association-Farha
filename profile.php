@@ -60,19 +60,9 @@ if (isset($_SESSION['ID'])) {
         <div class="group">
             <ul class="navigation">
                 <li><a href="events.php">Accueil</a></li>
-                <li><a href="#Événements-disponibles">Événements disponibles</a></li>
+                <li><a href="events.php#Événements-disponibles">Événements disponibles</a></li>
                 <li><a href="#FOOTER">Contact</a></li>
             </ul>
-            <div class="search">
-                <span class="icon">
-                    <ion-icon name="search-outline" class="searchBtn"></ion-icon>
-                    <ion-icon name="close-outline" class="closeBtn"></ion-icon>
-                </span>
-            </div>
-            <ion-icon name="menu-outline" class="menuToggle"></ion-icon>
-        </div>
-        <div class="searchBox">
-            <input type="text" name="" placeholder="Recherche...">
         </div>
     </header>
 
@@ -169,7 +159,7 @@ if (isset($_SESSION['ID'])) {
         </div>
 
     </footer>
-    <script src="header-script.js"></script>
+    
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>

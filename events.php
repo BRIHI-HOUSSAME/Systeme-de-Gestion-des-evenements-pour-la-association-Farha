@@ -261,8 +261,9 @@ include 'connection.php';
   } else {
     // If form is not submitted, fetch all upcoming events
     $sql = "SELECT * FROM evenement 
-            INNER JOIN version ON evenement.idEvenement = version.idEvenement 
-            WHERE dateEvenement > current_date()";
+            INNER JOIN version ON evenement.idEvenement = version.idEvenement ";
+            
+            // WHERE dateEvenement > current_date()
     $Statement = $DB->prepare($sql);
     $Statement->execute();
   }
