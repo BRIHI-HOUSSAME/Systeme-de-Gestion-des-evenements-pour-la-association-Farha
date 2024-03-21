@@ -88,44 +88,78 @@ if (isset($_SESSION['ID'])) {
         </form>
     </section>
 
-    <section>
-        <h3>Mes factures</h3>
-        <table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Référence Facture</th>
-            <th>Nom de l'événement</th>
-            <th>Date de l'évènement</th>
-            <th>Total Payé</th>
-            <th>Voir les détails</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-    </tbody>
-</table>
+    <section >
+                <h3>Mes factures</h3>
+                <div class="table-responsive">
+                <table class="table table-striped">
+                    <tr>
+                        <th>Référence Facture</th>
+                        <th>la Date d'achat</th>
+                        <th>Total Payé</th>
+                        <th>Mes Billets</th>
+                        <th>Ma facture</th>
+                    </tr>
+                    <?php
 
-    </section>
+
+                    $Purchases_invoices = Purchases_invoices($userId, $DB);
+
+                    if (!empty($Purchases_invoices)) {
+                        $IDV = $_SESSION['Version-ID'];
+
+                        foreach ($Purchases_invoices as $invoice) {
+
+                            $Version_event = Version_event($IDV, $DB);
+                            if ($Version_event) {
+                                $tarifnormal = $Version_event['tarifnormal'];
+                                $tarifReduit = $Version_event['tarifReduit'];
+                    
+                                $invoiceId = $invoice['idFacture'];
+                    
+                                $Tickets_on_invoice = Tickets_on_invoice($invoiceId, $DB);
+                                $Quantity_normal = 0;
+                                $Quantity_reduit = 0;
+                    
+                                foreach ($Tickets_on_invoice as $ticket) {
+                                    if ($ticket['typeBillet'] == 'normal') {
+                                        $Quantity_normal++;
+                                    }
+                    
+                                    if ($ticket['typeBillet'] == 'réduit') {
+                                        $Quantity_reduit++;
+                                    }
+                                }
+                            $Total_payment = $tarifReduit * $Quantity_reduit + $tarifnormal * $Quantity_normal;
+                            }
+
+                            echo "<tr> 
+                <td>" . $invoice['idFacture'] . " </td>
+                <td>" . $invoice['dateFacture'] . "</td>
+                <td> MAD " . $Total_payment . "</td>
+                <td>
+                  <form action='tickets.php' method='POST' target='_blank'>
+                    <input hidden value='{$invoice['idFacture']}' name='invoiceId' >
+                    <button type='submit' name='tickets' class='btn_p' >  see  </button>
+                  </form>
+                </td>
+                <td>
+                  <form action='invoices.php' method='POST' target='_blank' >
+                  <input hidden value='{$invoice['numVersion']}' name='event_id' >
+                   <input hidden value='{$invoice['idFacture']}' name='invoiceId' >
+                   <button type='submit' name='invoice' class='btn_p' > see  </button>
+                 </form>
+                </td>
+                
+              </tr>";
+                        }
+                    } else {
+                        echo "<tr><td colspan='5'>No invoices found</td></tr>";
+                    }
+                    ?>
+                </table>
+                </div>
+            </div>
+                </section>
 
 
     <footer id="FOOTER">

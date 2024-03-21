@@ -2,33 +2,102 @@
  session_start();
 include 'connection.php';
 
+
 if(isset($_POST['Acheter-Maintenant'])) {
+    if(isset($_SESSION['ID'])) {
+        $NBnormal = (int)$_POST['quantity-normal'];
+        $NBreduit = (int)$_POST['quantity-reduit'];
+        
+        if($NBnormal > 0 || $NBreduit > 0) {
 
-  if(isset($_SESSION['ID'])) {
+          $salleCapacity = getCapacityVersion($DB, $_GET['ID']);
+                            
+                            $countTicket = getCountTicket($DB, $_GET['ID']);
+                            
+                            $ticketsAvailables=$salleCapacity-$countTicket;
+                            if($ticketsAvailables==0)
+                            echo '
+                            <div class="fixed-top w-100 " style="margin-top: 100px;">
+                                <div class="alert alert-danger d-flex align-items-center justify-content-between alert-dismissible fade show px-5" role="alert">
+                                    <div class="d-flex align-items-center justify-content-center gap-3">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-triangle-fill" viewBox="0 0 16 16">
+                                            <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5m.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
+                                        </svg>
+                                        Il reste plus de places !!
+                                    </div>
+                                    <div>
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                </div>
+                            </div>
+                            ';
+                            else
+                                if(($NBnormal+$NBreduit)>$ticketsAvailables)
+                                echo '
+                                <div class="fixed-top w-100 " style="margin-top: 100px;">
+                                    <div class="alert alert-danger d-flex align-items-center justify-content-between alert-dismissible fade show px-5" role="alert">
+                                        <div class="d-flex align-items-center justify-content-center gap-3">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-triangle-fill" viewBox="0 0 16 16">
+                                                <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5m.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
+                                            </svg>
+                                            Il reste que '.$ticketsAvailables.'places!!
+                                        </div>
+                                        <div>
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                ';
+                                else{
 
+                                    $codeF=createBill($DB,$_GET['ID']);
 
+                                    for($i=1;$i<=$NBnormal;$i++){
+                                            $p=getLastPlace($DB,$codeF);
+                                            $TK=createTicket($DB,$codeF,'Normal',$p);
+                                    }
+                                    for($i=1;$i<=$NBreduit;$i++)
+                                    {
+                                        $p=getLastPlace($DB,$codeF);
+                                        $TK=createTicket($DB,$codeF,'Réduit',$p);
+                                }
+                                }
 
-    
-  } 
-  else {
-    echo '
-    <div class="fixed-top w-100 " style="margin-top: 100px;">
-        <div class="alert alert-danger d-flex align-items-center justify-content-between alert-dismissible fade show px-5" role="alert">
-            <div class="d-flex align-items-center justify-content-center gap-3">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-triangle-fill" viewBox="0 0 16 16">
-                    <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5m.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
-                </svg>
- Vous devez vous connecter pour pouvoir acheter les billets,<span data-bs-target="#exampleModalToggle" data-bs-toggle="modal" class="acht-msg">Connécter vous</span>
+        } else {
+            echo '
+            <div class="fixed-top w-100 " style="margin-top: 100px;">
+                <div class="alert alert-danger d-flex align-items-center justify-content-between alert-dismissible fade show px-5" role="alert">
+                    <div class="d-flex align-items-center justify-content-center gap-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-triangle-fill" viewBox="0 0 16 16">
+                            <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5m.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
+                        </svg>
+                        Veuillez mentionner le nombre de billets.
+                    </div>
+                    <div>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
                 </div>
-            <div>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            ';
+        }
+    } else {
+        echo '
+        <div class="fixed-top w-100 " style="margin-top: 100px;">
+            <div class="alert alert-danger d-flex align-items-center justify-content-between alert-dismissible fade show px-5" role="alert">
+                <div class="d-flex align-items-center justify-content-center gap-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-triangle-fill" viewBox="0 0 16 16">
+                        <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5m.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
+                    </svg>
+                    Vous devez vous connecter pour pouvoir acheter les billets,<span data-bs-target="#exampleModalToggle1" data-bs-toggle="modal" class="acht-msg">Connécter vous</span>
+                </div>
+                <div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
             </div>
         </div>
-    </div>
-    ';
-  }
+        ';
+    }
 }
-
 
 
   // Connexion form target
@@ -146,7 +215,7 @@ if(isset($_POST['Acheter-Maintenant'])) {
           echo'<a href="profile.php" >Profile</a>';
         }
         else{
-          echo'<a  data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Mon Compte</a>';
+          echo'<a href="" data-bs-target="#exampleModalToggle1" data-bs-toggle="modal">Mon Compte</a>';
         }
         ?>
         </li>
@@ -154,7 +223,11 @@ if(isset($_POST['Acheter-Maintenant'])) {
     </div>
   </header>
 
-  <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+
+
+</div>
+
+  <div class="modal fade" id="exampleModalToggle1" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
@@ -213,11 +286,12 @@ if(isset($_POST['Acheter-Maintenant'])) {
 
 
     if (isset($_GET['ID'])) {
-        $ID = $_GET['ID'];
+      
+      $_SESSION['Version-ID'] = $_GET['ID'];
 
         $sql = "SELECT * FROM evenement 
            INNER JOIN version ON evenement.idEvenement = version.idEvenement 
-           WHERE evenement.idEvenement = '" . $ID . "'";
+           WHERE evenement.idEvenement = '" . $_SESSION['Version-ID']  . "'";
 
 
         $Statement = $DB->prepare($sql);
@@ -226,6 +300,7 @@ if(isset($_POST['Acheter-Maintenant'])) {
         $Action2 = "Acheter maintenant";
         $row = $Statement->fetch(PDO::FETCH_ASSOC);
 
+        // display the DETAILLE 
 
         echo "   <h1 class='titre'>{$row['titre']}</h1>";
         echo '<section class="EVENT-DETAILLE" >';
@@ -250,42 +325,42 @@ if(isset($_POST['Acheter-Maintenant'])) {
         echo '<p>Nombre de Tickets:</p><input type="number" name="quantity-reduit" min="1" max="100">';
         echo '</div>';
         echo "<p class='ACTION-TEXT'> Vite !! Achetez rapidement vos tickets </p>";
-
+        
         // Current date and time
         $currentDate = date("Y-m-d H:i:s");
-
         // Calculate the difference in seconds
         $diff = strtotime($datetime) - strtotime($currentDate);
-
         // Calculate the remaining days, hours, minutes, and seconds
         $days = floor($diff / (60 * 60 * 24));
         $hours = floor(($diff % (60 * 60 * 24)) / (60 * 60));
         $minutes = floor(($diff % (60 * 60)) / 60);
         $seconds = $diff % 60;
-
         // Output the countdown
         echo '<div id="countdown">';
         echo '<div class="countdown-item">
-      <div class="countdown-circle"><span id="days">' . $days . '</span></div>
-          <p>Jours</p>
-      </div>
-      <div class="countdown-item">
-          <div class="countdown-circle"><span id="hours">' . $hours . '</span></div>
-          <p>Heure</p>
-      </div>
-      <div class="countdown-item">
-      <div class="countdown-circle" ><span id="minutes">' . $minutes . '</span></div>
-          <p>Minute</p>
-      </div>
-      <div class="countdown-item">
-      <div class="countdown-circle"> <span id="seconds" >' . $seconds . '</span></div>
-          <p>Second</p>
-      </div>';
+          <div class="countdown-circle"><span id="days">' . $days . '</span></div>
+              <p>Jours</p>
+          </div>
+          <div class="countdown-item">
+              <div class="countdown-circle"><span id="hours">' . $hours . '</span></div>
+              <p>Heure</p>
+          </div>
+          <div class="countdown-item">
+          <div class="countdown-circle" ><span id="minutes">' . $minutes . '</span></div>
+              <p>Minute</p>
+          </div>
+          <div class="countdown-item">
+          <div class="countdown-circle"> <span id="seconds" >' . $seconds . '</span></div>
+              <p>Second</p>
+          </div>';
         echo "</div>";
+        
+          echo '<button type="submit" name="Acheter-Maintenant" class="action-BTN">' . $Action2 . '</button>';
 
-        echo'        <input type="submit" value="' . $Action2 . '" name="Acheter-Maintenant"  class="action-BTN" >';
+      
+        
         echo "<p class='cntc-msg'>* Vous devez vous connecter pour pouvoir acheter les billets *</p>";
-        echo"</form>";
+        echo "</form>";
 
         echo '</section>';
         echo '<section class="DESCRIPTION">';
@@ -327,7 +402,7 @@ WHERE evenement.categorie = '{$row['categorie']}'";
         echo "<p class='card-price' > À partir de : {$row2['tarifReduit']} MAD</p>";
 
         echo '</div>';
-        echo '<a href="EVENT-PAGE.php"><button class="card-button">' . $Action . '</button></a>';
+        echo '<a a href="EVENT-PAGE.php?ID=' . $row2['idEvenement'] . '"><button class="card-button" >' . $Action . '</button></a>';
         echo '</div>';
     }
     echo "</section>";

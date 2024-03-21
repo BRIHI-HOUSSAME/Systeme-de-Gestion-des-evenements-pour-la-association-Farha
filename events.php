@@ -233,8 +233,9 @@ include 'connection.php';
 
     // Start building the SQL query based on user input
     $sql = "SELECT * FROM evenement 
-            INNER JOIN version ON evenement.idEvenement = version.idEvenement 
-            WHERE dateEvenement > current_date()";
+            INNER JOIN version ON evenement.idEvenement = version.idEvenement ";
+            // WHERE dateEvenement > current_date()";
+
 
     // Add category filter if selected
     if (!empty($category)) {
